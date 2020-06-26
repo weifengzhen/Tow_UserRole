@@ -23,4 +23,5 @@ public class PageTableRequest implements Serializable {
         this.offset = (this.page - 1) * limit;
     }
 
+
 }
