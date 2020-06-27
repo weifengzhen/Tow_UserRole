@@ -1,7 +1,9 @@
 package com.weifeng.friday.dao;
 
 import com.weifeng.friday.model.SysUser;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -23,5 +25,11 @@ public interface UserDao {
      */
     @Select("select count(*) from sys_user")
     Long countAllUser();
+
+
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into sys_user(username, password, nickname, headImgUrl, phone, telephone, email, birthday, sex, status, createTime, updateTime) values(#{username}, #{password}, #{nickname}, #{headImgUrl}, #{phone}, #{telephone}, #{email}, #{birthday}, #{sex}, #{status}, now(), now())")
+    int save(SysUser user);
+
 
 }
