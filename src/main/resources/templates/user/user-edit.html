@@ -171,7 +171,17 @@
               success:function(result){
                   if (result.code==200){
                       if (result.data!=null){
-                          
+                          // 根据属性选择器获取到数组对象
+                          $("[name=userId]").each(function () {
+                              if ($(this).val()==result.data.userId){
+                                  $(this).attr("checked","checked")
+                                  return false;
+                              }
+                          })
+                      }
+
+                      if (callback){
+                          callback();
                       }
                   }
 
