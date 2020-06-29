@@ -1,6 +1,7 @@
 package com.weifeng.friday.controller;
 
 import com.weifeng.friday.base.result.PageTableRequest;
+import com.weifeng.friday.base.result.ResponseCode;
 import com.weifeng.friday.base.result.Results;
 import com.weifeng.friday.dto.UserDto;
 import com.weifeng.friday.model.SysUser;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.xml.ws.Response;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,6 +54,13 @@ public class UserController {
     @PostMapping("/add")
     @ResponseBody
     public Results<SysUser> saveUser(UserDto userDto,Integer roleId) {
+        SysUser sysUser =null;
+
+        sysUser=userService.getAllByPhone(userDto.getPhone());
+        if (sysUser!=null && sysUser.getId().equals(userDto.getId())){
+            return Results.failure(ResponseCode.PHONE_REPEAT.getCode(),ResponseCode.PHONE_REPEAT.getMessage());
+        }
+
         userDto.setStatus(1);  //设置开启状态
                                 //调用工具类进行md5加密
         userDto.setPassword(MD5.crypt(userDto.getPassword()));
@@ -70,5 +79,19 @@ public class UserController {
     public void initBinder(WebDataBinder webDataBinder, WebRequest webRequest){
        webDataBinder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat(patt),true));
 
+    }
+
+
+    /**
+     * 用户编辑管理
+     * @param model
+     * @param sysUser
+     * @return
+     */
+    @GetMapping("/edit")
+    public String edit(Model model,SysUser sysUser) {
+
+        model.addAttribute(userService.getById(sysUser.getId().intValue()));
+        return "user/user-edit";
     }
 }

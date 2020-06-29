@@ -32,4 +32,10 @@ public interface UserDao {
     int save(SysUser user);
 
 
+    @Select("select * from sys_user where telephone=#{phone}" )
+    SysUser getAllByPhone(String phone);
+
+    @Select("select * from sys_user where id=#{id}" )
+    Object getById(Integer id);
+
 }

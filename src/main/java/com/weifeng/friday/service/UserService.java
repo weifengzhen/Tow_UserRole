@@ -12,4 +12,11 @@ public interface UserService {
     Results<SysUser> getAllUserByPage(Integer offset, Integer limit);
 
     Results save(UserDto userDto, Integer roleId);
+
+
+    SysUser getAllByPhone(String phone);
+
+
+    Object getById(Integer id);
+
 }

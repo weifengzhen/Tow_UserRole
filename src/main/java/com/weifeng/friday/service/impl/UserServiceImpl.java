@@ -63,4 +63,16 @@ public class UserServiceImpl implements UserService {
         }
         return Results.failure();
     }
+
+    @Override
+    public SysUser getAllByPhone(String phone) {
+        SysUser sysUser=userDao.getAllByPhone(phone);
+        return sysUser;
+    }
+
+    @Override
+    public Object getById(Integer id) {
+        return userDao.getById(id);
+
+    }
 }
