@@ -1,3 +1,5 @@
+
+
 spring:
   profiles:
     active: dev    #配置日志的开发环境    dev是logback下的标识
@@ -5,7 +7,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/friday?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/user_role?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
     password: 123456
     platform: mysql
@@ -30,6 +32,8 @@ spring:
   #PSCache的大小。官方建议MySQL下建议关闭，如果用SQL防火墙 建议打开
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
+  thymeleaf:
+    cache: false
 
 
 mybatis:
@@ -37,6 +41,7 @@ mybatis:
   mapper-locations: classpath:/mybatis-mappers/*
   configuration:
     map-underscore-to-camel-case: true
+
 
 
 
